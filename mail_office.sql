@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2020 at 06:44 AM
+-- Generation Time: Aug 11, 2020 at 10:06 AM
 -- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.8
+-- PHP Version: 7.2.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,6 +33,13 @@ CREATE TABLE `bagian` (
   `nama_bagian` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `bagian`
+--
+
+INSERT INTO `bagian` (`id_bagian`, `id_user`, `nama_bagian`) VALUES
+(2, NULL, 'Kepala Dinas');
+
 -- --------------------------------------------------------
 
 --
@@ -55,9 +62,9 @@ CREATE TABLE `migrations` (
 
 INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`, `batch`) VALUES
 (1, '2020-07-30-041806', 'App\\Database\\Migrations\\User', 'default', 'App', 1596084993, 1),
-(2, '2020-07-30-041832', 'App\\Database\\Migrations\\SuratMasuk', 'default', 'App', 1596085382, 2),
-(3, '2020-07-30-041838', 'App\\Database\\Migrations\\SuratKeluar', 'default', 'App', 1596085435, 3),
-(4, '2020-07-30-041859', 'App\\Database\\Migrations\\Bagian', 'default', 'App', 1596085435, 3);
+(4, '2020-07-30-041859', 'App\\Database\\Migrations\\Bagian', 'default', 'App', 1596085435, 3),
+(5, '2020-07-30-041832', 'App\\Database\\Migrations\\SuratMasuk', 'default', 'App', 1596520941, 4),
+(7, '2020-07-30-041838', 'App\\Database\\Migrations\\SuratKeluar', 'default', 'App', 1596521088, 5);
 
 -- --------------------------------------------------------
 
@@ -69,6 +76,7 @@ CREATE TABLE `surat_keluar` (
   `id_sk` bigint(20) UNSIGNED NOT NULL,
   `id_user` bigint(20) UNSIGNED DEFAULT NULL,
   `no_surat` varchar(100) NOT NULL,
+  `tgl_surat` date NOT NULL,
   `perihal` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -82,6 +90,7 @@ CREATE TABLE `surat_masuk` (
   `id_sm` bigint(20) UNSIGNED NOT NULL,
   `id_user` bigint(20) UNSIGNED DEFAULT NULL,
   `no_surat` varchar(100) NOT NULL,
+  `tgl_surat` date NOT NULL,
   `perihal` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -109,7 +118,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `nama_lengkap`, `email`, `password`, `alamat`, `telepon`, `pengalaman`, `status`, `level`) VALUES
-(1, 'm_syaekhoni', 'Muhammad Syaekhoni', 'Syaekhonimuhammad@gmail.com', '12345678', 'Tulungagung', '085649750587', 'Fresh Graduate', 'Active', 'Super_Admin');
+(6, 'SYAEKHONI22', 'Muhammad Syaekhoni', 'Syaekhonimuhammad@gmail.com', '$2y$10$Bs8iDrel7xQY0kx/QSBnMe0NQmNrCJM.oAb5Mze3Kda8pg1hO1COm', '', '', '', 'Active', 'Super_Admin'),
+(7, 'MunirSobakhulMunir', 'Sobakhul Munir S', 'MunirSR@gmail.com', '$2y$10$XiXHE525UFlfRatR4er9jOLSGULUYQn2eyNRnh52fPsYsdMOQCL96', '', '', '', 'Active', 'Super_Admin'),
+(8, 'Renanta_po', 'Renanta Putra O', 'RenantaPO@gmail.com', '', 'Malang', '085649750456', 'Fresh Graduate', 'Active', 'Super_Admin');
 
 --
 -- Indexes for dumped tables
@@ -156,19 +167,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bagian`
 --
 ALTER TABLE `bagian`
-  MODIFY `id_bagian` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bagian` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `surat_keluar`
 --
 ALTER TABLE `surat_keluar`
-  MODIFY `id_sk` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sk` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `surat_masuk`
@@ -180,7 +191,7 @@ ALTER TABLE `surat_masuk`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
