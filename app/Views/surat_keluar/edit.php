@@ -36,35 +36,96 @@
                         </div>
                     <?php } ?>
                     <div class="card">
-                        <?php echo form_open_multipart('SuratKeluar/update'); ?>
+                        <?php echo form_open_multipart('suratKeluar/update'); ?>
+                        <?= csrf_field(); ?>
                         <div class="card-header">Form Edit Surat Keluar</div>
                         <div class="card-body">
                             <?php echo form_hidden('id_sk', $surat_keluar['id_sk']); ?>
+                            <?php echo form_hidden('lampiranLama', $surat_keluar['lampiran']); ?>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                        $nama_pengirim = [
+                                            'type'  => 'hidden',
+                                            'name'  => 'nama_pengirim',
+                                            'id'    => 'nama_pengirim',
+                                            'value' => session()->get('nama_lengkap'),
+                                            'class' => 'form-control'
+                                        ];
+                                        echo form_input($nama_pengirim);
+                                        ?>
+                                        <?php
+                                        echo form_label('Nomer');
+                                        $no_surat = [
+                                            'type'  => 'text',
+                                            'name'  => 'no_surat',
+                                            'id'    => 'no_surat',
+                                            'value' => $surat_keluar['no_surat'],
+                                            'class' => 'form-control'
+                                        ];
+                                        echo form_input($no_surat);
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?php
+                                        echo form_label('Penerima', 'user');
+                                        echo form_dropdown('id_user', $user, $surat_keluar['id_user'], ['class' => 'form-control']);
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?php
+                                        echo form_label('Perihal');
+                                        $perihal = [
+                                            'type'  => 'text',
+                                            'name'  => 'perihal',
+                                            'id'    => 'perihal',
+                                            'value' => $surat_keluar['perihal'],
+                                            'class' => 'form-control'
+                                        ];
+                                        echo form_input($perihal);
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?php
+                                        echo form_label('Upload File');
+                                        $lampiran = [
+                                            'type' => 'file',
+                                            'name' => 'lampiran',
+                                            'id' => 'lampiran',
+                                            'value' => $surat_keluar['lampiran'],
+                                            'class' => 'form-control',
+                                            'placeholder' => 'lampiran'
+                                        ];
+                                        echo form_upload($lampiran);
+                                        ?>
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <?php echo form_label('user', 'user'); ?>
-                                        <?php echo form_dropdown('id_user', $user, $surat_keluar['id_user'], ['class' => 'form-control']); ?>
+                                        <?php
+                                        echo form_label('Tanggal');
+                                        $tgl_surat = [
+                                            'type'  => 'date',
+                                            'name'  => 'tgl_surat',
+                                            'id'    => 'tgl_surat',
+                                            'value' => $surat_keluar['tgl_surat'],
+                                            'class' => 'form-control'
+                                        ];
+                                        echo form_input($tgl_surat);
+                                        ?>
                                     </div>
                                     <div class="form-group">
-                                        <?php echo form_label('no_surat', 'no_surat'); ?>
-                                        <?php echo form_input('no_surat', $surat_keluar['no_surat'], ['class' => 'form-control', 'placeholder' => 'Nomor Surat']); ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <?php echo form_label('tgl_surat', 'tgl_surat'); ?>
-                                        <?php echo form_input('tgl_surat', $surat_keluar['tgl_surat'], ['class' => 'form-control', 'placeholder' => '', 'type' => 'date']); ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <?php echo form_label('perihal', 'perihal'); ?>
-                                        <?php echo form_input('perihal', $surat_keluar['perihal'], ['class' => 'form-control', 'placeholder' => 'perihal']); ?>
+                                        <?php
+                                        echo form_label('Deskripsi');
+                                        ?>
+                                        <textarea class="form-control" name="deskripsi" id="" cols="30" rows="9"><?= $surat_keluar['deskripsi']; ?></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="<?php echo base_url('SuratKeluar'); ?>" class="btn btn-outline-info">Kembali</a>
+                            <a href="<?php echo base_url('suratKeluar'); ?>" class="btn btn-outline-info">Kembali</a>
                             <button type="submit" class="btn btn-primary float-right">Update</button>
                         </div>
                         <?php echo form_close(); ?>

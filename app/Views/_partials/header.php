@@ -30,6 +30,9 @@
                         <i class="far fa-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="<?php echo base_url('profile'); ?>" class="dropdown-item">
+                            Profile
+                        </a>
                         <a href="<?php echo base_url('auth/logout'); ?>" class="dropdown-item">
                             Logout
                         </a>

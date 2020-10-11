@@ -90,6 +90,12 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-8">
+                        <!-- <p class="mb-0">
+                            <a href="<?php //echo base_url('auth/register'); 
+                                        ?>" class="text-center">Register</a>
+                        </p> -->
+                    </div>
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
                     </div>

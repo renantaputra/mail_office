@@ -24,8 +24,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            List Bagian
-                            <a href="<?php echo base_url('/bagian/create/'); ?>" class="btn btn-primary float-right">Tambah</a>
+                            <a href="<?php echo base_url('bagian/create/'); ?>" class="btn btn-primary float-right">Tambah</a>
                         </div>
                         <div class="card-body">
 
@@ -52,34 +51,37 @@
                                 <table class="table table-bordered table-hovered">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th width="10px" class="text-center">No</th>
                                             <th>Nama Bagian</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($bagian as $key => $row) { ?>
+                                        <?php $i = 1 + (5 * ($currentPage - 1)); ?>
+                                        <?php foreach ($bagian as $row) : ?>
                                             <tr>
-                                                <td><?php echo $key + 1; ?></td>
+                                                <td class="text-center"><?php echo $i++; ?></td>
                                                 <td><?php echo $row['nama_bagian']; ?></td>
                                                 <td>
-                                                    <div class="btn-group">
-                                                        <a href="<?php echo base_url('Bagian/edit/' . $row['id_bagian']); ?>" class="btn btn-sm btn-success">
-                                                            <i class="fa fa-edit"></i>
-                                                        </a>
-                                                        <a href="<?php echo base_url('Bagian/delete/' . $row['id_bagian']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus bagian ini?');">
-                                                            <i class="fa fa-trash-alt"></i>
-                                                        </a>
+                                                    <div class="text-center">
+                                                        <div class="btn-group">
+                                                            <a href="<?php echo base_url('bagian/edit/' . $row['id_bagian']); ?>" class="btn btn-sm btn-success">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                            <a href="<?php echo base_url('bagian/delete/' . $row['id_bagian']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus bagian ini?');">
+                                                                <i class="fa fa-trash-alt"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row mt-3 float-right">
                                 <div class="col-md-12">
-                                    <?php echo $pager->links('bagian', 'bootstrap_pagination') ?>
+                                    <?= $pager->links('bagian', 'bootstrap_pagination'); ?>
                                 </div>
                             </div>
                         </div>

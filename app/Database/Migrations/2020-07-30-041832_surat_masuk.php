@@ -26,6 +26,10 @@ class SuratMasuk extends Migration
 				'type'              => 'VARCHAR',
 				'constraint'        => '100',
 			],
+			'nama_pengirim'           => [
+				'type'              => 'VARCHAR',
+				'constraint'        => '100',
+			],
 			'tgl_surat'          => [
 				'type'              => 'DATE',
 			],
@@ -33,6 +37,18 @@ class SuratMasuk extends Migration
 				'type'              => 'VARCHAR',
 				'constraint'        => '100',
 			],
+			'deskripsi'           => [
+				'type'              => 'VARCHAR',
+				'constraint'        => '255',
+			],
+			'lampiran'           => [
+				'type'              => 'VARCHAR',
+				'constraint'        => '100',
+			],
+			'dibaca'           => [
+				'type'              => 'INT',
+				'constraint'        => '1',
+			]
 		]);
 		$this->forge->addKey('id_sm', TRUE);
 		$this->forge->addForeignKey('id_user', 'user', 'id_user', 'CASCADE', 'CASCADE');

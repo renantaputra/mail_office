@@ -29,10 +29,22 @@ class SuratKeluar extends Migration
 			'tgl_surat'          => [
 				'type'              => 'DATE',
 			],
+			'nama_pengirim'           => [
+				'type'              => 'VARCHAR',
+				'constraint'        => '100',
+			],
 			'perihal'           => [
 				'type'              => 'VARCHAR',
 				'constraint'        => '100',
 			],
+			'deskripsi'           => [
+				'type'              => 'VARCHAR',
+				'constraint'        => '255',
+			],
+			'lampiran'           => [
+				'type'              => 'VARCHAR',
+				'constraint'        => '100',
+			]
 		]);
 		$this->forge->addKey('id_sk', TRUE);
 		$this->forge->addForeignKey('id_user', 'user', 'id_user', 'CASCADE', 'CASCADE');

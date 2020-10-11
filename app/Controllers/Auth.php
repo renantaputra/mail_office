@@ -55,11 +55,19 @@ class Auth extends BaseController
 
                 // jika email dan password cocok
                 if (password_verify($password, $cek_login['password'])) {
-
+                    session()->set('id_user', $cek_login['id_user']);
                     session()->set('email', $cek_login['email']);
                     session()->set('nama_lengkap', $cek_login['nama_lengkap']);
                     session()->set('level', $cek_login['level']);
                     session()->set('status', $cek_login['status']);
+                    session()->set('foto', $cek_login['foto']);
+                    session()->set('cek', 'Maffice@Project_2020');
+
+                    // Melakukan pengecekan session
+
+                    // $m = session()->get('foto');
+                    // dd($m);
+                    // session_destroy();
 
                     return redirect()->to('/dashboard');
                     // email cocok, tapi password salah
@@ -70,6 +78,50 @@ class Auth extends BaseController
             } else {
                 // email tidak cocok / tidak terdaftar
                 session()->setFlashdata('errors', ['' => 'Email yang Anda masukan tidak terdaftar']);
+                return redirect()->to('/auth/login');
+            }
+        }
+    }
+
+    public function register()
+    {
+        if ($this->cek_login() == TRUE) {
+            return redirect()->to('/dashboard');
+        }
+        return view('auth/register');
+    }
+
+    public function proses_register()
+    {
+        $validation =  \Config\Services::validation();
+
+        $data = [
+            'email'             => $this->request->getPost('email'),
+            'nama_lengkap'      => $this->request->getPost('nama_lengkap'),
+            'username'          => $this->request->getPost('username'),
+            'password'          => $this->request->getPost('password'),
+            'confirm_password'  => $this->request->getPost('confirm_password')
+        ];
+
+        if ($validation->run($data, 'authregister') == FALSE) {
+            session()->setFlashdata('errors', $validation->getErrors());
+            session()->setFlashdata('inputs', $this->request->getPost());
+            return redirect()->to('/auth/register');
+        } else {
+
+            $datalagi = [
+                'email'         => $this->request->getPost('email'),
+                'nama_lengkap'  => $this->request->getPost('nama_lengkap'),
+                'username'      => $this->request->getPost('username'),
+                'password'      => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                'status'        => "Active",
+                'level'         => "User"
+            ];
+
+            $simpan = $this->auth_model->register($datalagi);
+
+            if ($simpan) {
+                session()->setFlashdata('success_register', 'Register Successfully');
                 return redirect()->to('/auth/login');
             }
         }

@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="<?php echo base_url('Bagian/update'); ?>" method="post">
+                    <form action="<?php echo base_url('bagian/update'); ?>" method="post">
                         <div class="card">
                             <div class="card-body">
                                 <?php
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="<?php echo base_url('/bagian'); ?>" class="btn btn-outline-info">Kembali</a>
+                                <a href="<?php echo base_url('bagian'); ?>" class="btn btn-outline-info">Kembali</a>
                                 <button type="submit" class="btn btn-primary float-right">Update</button>
                             </div>
                         </div>

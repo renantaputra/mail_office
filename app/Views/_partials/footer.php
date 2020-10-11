@@ -16,6 +16,24 @@
 <script src="<?php echo base_url('themes/plugins'); ?>/jquery/jquery.min.js"></script>
 <script src="<?php echo base_url('themes/plugins'); ?>/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?php echo base_url('themes/dist'); ?>/js/adminlte.min.js"></script>
+//preview upload foto
+<script>
+    function previewImg() {
+        const foto = document.querySelector('#foto');
+        const fotoLabel = document.querySelector('.custom-file-label');
+        const imgPreview = document.querySelector('.img-preview');
+
+        fotoLabel.textContent = foto.files[0].name;
+
+        const fileFoto = new FileReader();
+        fileFoto.readAsDataURL(foto.files[0]);
+
+        fileFoto.onload = function(e) {
+            imgPreview.src = e.target.result;
+        }
+    }
+</script>
+
 </body>
 
 </html>

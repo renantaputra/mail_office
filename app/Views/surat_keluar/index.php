@@ -24,11 +24,9 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            List Surat Keluar
-                            <a href="<?php echo base_url('SuratKeluar/create'); ?>" class="btn btn-primary float-right">Tambah</a>
+                            <a href="<?php echo base_url('suratKeluar/create'); ?>" class="btn btn-primary float-right">Tambah</a>
                         </div>
                         <div class="card-body">
-
                             <?php
                             if (!empty(session()->getFlashdata('success'))) { ?>
                                 <div class="alert alert-success">
@@ -55,40 +53,43 @@
                                             <th width="10px" class="text-center">No</th>
                                             <th>Nomer Surat</th>
                                             <th>Tanggal Surat</th>
-                                            <th>Perihal</th>
                                             <th>Nama Pengirim</th>
+                                            <th>Nama Penerima</th>
+                                            <th>Perihal</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($surat_keluar as $key => $row) { ?>
+                                        <?php $i = 1 + (5 * ($currentPage - 1)); ?>
+                                        <?php foreach ($surat_keluar as $row) : ?>
                                             <tr>
-                                                <td class="text-center"><?php echo ++$key; ?></td>
+                                                <td class="text-center"><?php echo $i++; ?></td>
                                                 <td><?php echo $row['no_surat']; ?></td>
-                                                <td><?php echo $row['tgl_surat']; ?></td>
-                                                <td><?php echo $row['perihal']; ?></td>
+                                                <td><?php echo date('d-m-yy', strtotime($row['tgl_surat'])); ?></td>
+                                                <td><?php echo $row['nama_pengirim'] ?></td>
                                                 <td><?php echo $row['nama_lengkap']; ?></td>
+                                                <td><?php echo $row['perihal']; ?></td>
                                                 <td class="text-center">
                                                     <div class="btn-group">
-                                                        <a href="<?php echo base_url('SuratKeluar/show/' . $row['id_sk']); ?>" class="btn btn-sm btn-info">
+                                                        <a href="<?php echo base_url('suratKeluar/show/' . $row['id_sk']); ?>" class="btn btn-sm btn-info">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
-                                                        <a href="<?php echo base_url('SuratKeluar/edit/' . $row['id_sk']); ?>" class="btn btn-sm btn-success">
+                                                        <a href="<?php echo base_url('suratKeluar/edit/' . $row['id_sk']); ?>" class="btn btn-sm btn-success">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
-                                                        <a href="<?php echo base_url('SuratKeluar/delete/' . $row['id_sk']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
+                                                        <a href="<?php echo base_url('suratKeluar/delete/' . $row['id_sk']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
                                                             <i class="fa fa-trash-alt"></i>
                                                         </a>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row mt-3 float-right">
                                 <div class="col-md-12">
-                                    <?php echo $pager->links('surat_keluar', 'bootstrap_pagination') ?>
+                                    <?= $pager->links('surat_keluar', 'bootstrap_pagination'); ?>
                                 </div>
                             </div>
                         </div>

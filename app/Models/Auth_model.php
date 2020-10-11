@@ -10,6 +10,7 @@ class Auth_model extends Model
 
     public function cek_login($email)
     {
+
         $query = $this->table('user')
             ->where('email', $email)
             ->countAll();
@@ -24,5 +25,10 @@ class Auth_model extends Model
             $hasil = array();
         }
         return $hasil;
+    }
+
+    public function register($data)
+    {
+        return $this->db->table($this->table)->insert($data);
     }
 }

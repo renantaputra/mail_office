@@ -41,12 +41,13 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		// $this->session = \Config\Services::session();
+		session();
 	}
 
 	public function cek_login()
 	{
 		$result = true;
-		if (session()->get('level') != "Super_Admin" & session()->get('status') != "Active") {
+		if (session()->get('level') != "User" & session()->get('status') != "Active") {
 			$result = false;
 		}
 		return $result;

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use CodeIgniter\Database\SQLite3\Table;
 use CodeIgniter\Model;
 
 class UserModel extends Model
@@ -11,17 +12,17 @@ class UserModel extends Model
 
     protected $allowedFields = [
         'username', 'password', 'nama_lengkap', 'email', 'alamat',
-        'telp', 'pengalaman', 'level', 'status'
+        'telp', 'pengalaman', 'level', 'status', 'foto'
     ];
 
     protected $useTimestamps = true;
 
     public function getUser($id_user = false)
     {
-        if ($id_user === false) {
+        if ($id_user == false) {
             return $this->findAll();
         } else {
-            return $this->getWhere(['id_user' => $id_user]);
+            return $this->where(['id_user' => $id_user])->first();
         }
     }
 
@@ -38,5 +39,19 @@ class UserModel extends Model
     public function deleteUser($id_user)
     {
         return $this->db->table($this->table)->delete(['id_user' => $id_user]);
+    }
+
+    public function updatePassword($new_pass, $id_user)
+    {
+        $updatePass = $this->db->table('user');
+        $updatePass->where('id_user', $id_user);
+        return $updatePass->update(['password' => $new_pass]);
+    }
+
+    public function updateFoto($new_foto, $id_user)
+    {
+        $updateFoto = $this->db->table('user');
+        $updateFoto->where('id_user', $id_user);
+        return $updateFoto->update(['foto' => $new_foto]);
     }
 }

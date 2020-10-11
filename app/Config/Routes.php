@@ -28,7 +28,7 @@ $routes->setDefaultController('Auth');
 $routes->setDefaultMethod('login');
 $routes->setTranslateURIDashes(true);
 $routes->set404Override();
-$routes->setAutoRoute(true);
+$routes->setAutoRoute(false);
 // /**
 //  * --------------------------------------------------------------------
 //  * Route Definitions
@@ -49,33 +49,54 @@ $routes->get('auth/logout', 'Auth::logout');
 
 $routes->get('dashboard', 'Dashboard::index');
 
-$routes->get('user', 'User::index');
-$routes->get('user/create', 'User::create');
-$routes->post('user/user', 'User::user');
-$routes->get('user/edit/(:num)', 'User::edit/$1');
-$routes->post('user/update/(:num)', 'User::update/$1');
-$routes->get('user/delete/(:num)', 'User::delete/$1');
+if (session()->get('level') !== 'User') {
 
-$routes->get('bagian', 'Bagian::index');
-$routes->get('bagian/create', 'Bagian::create');
-$routes->post('bagian/bagian', 'Bagian::bagian');
-$routes->get('bagian/edit/(:num)', 'Bagian::edit/$1');
-$routes->post('bagian/update/(:num)', 'Bagian::update/$1');
-$routes->get('bagian/delete/(:num)', 'Bagian::delete/$1');
+	$routes->get('bagian', 'Bagian::index');
+	$routes->get('bagian/create', 'Bagian::create');
+	$routes->post('bagian/bagian', 'Bagian::bagian');
+	$routes->get('bagian/edit/(:num)', 'Bagian::edit/$1');
+	$routes->post('bagian/update', 'Bagian::update');
+	$routes->get('bagian/delete/(:num)', 'Bagian::delete/$1');
+
+	if (session()->get('level') === 'Super_Admin') {
+
+		$routes->get('user', 'User::index');
+		$routes->get('user/detail/(:num)', 'User::detail/$1');
+		$routes->get('user/create', 'User::create');
+		$routes->post('user/user', 'User::user');
+		$routes->get('user/edit/(:num)', 'User::edit/$1');
+		$routes->post('user/update', 'User::update');
+		$routes->get('user/delete/(:num)', 'User::delete/$1');
+	}
+}
+
+$routes->get('profile', 'profile::index');
+$routes->get('profile/edit/(:num)', 'Profile::edit/$1');
+$routes->post('profile/update', 'Profile::update');
+$routes->get('profile/change/(:num)', 'Profile::change/$1');
+$routes->post('profile/change_pass', 'Profile::change_password');
+$routes->get('profile/changeFoto/(:num)', 'Profile::changeFoto/$1');
+$routes->post('profile/change_foto', 'Profile::change_foto');
 
 $routes->get('suratMasuk', 'SuratMasuk::index');
-// $routes->get('suratMasuk/create', 'SuratKeluar::create');
-// $routes->post('suratKeluar/bagian', 'SuratKeluar::bagian');
-// $routes->get('suratKeluar/edit/(:num)', 'SuratKeluar::edit/$1');
-// $routes->post('suratKeluar/update/(:num)', 'SuratKeluar::update/$1');
-// $routes->get('suratKeluar/delete/(:num)', 'SuratKeluar::delete/$1');
+$routes->get('suratMasuk/show/(:num)', 'SuratMasuk::show/$1');
+$routes->get('suratMasuk/delete/(:num)', 'SuratMasuk::delete/$1');
+$routes->get('suratMasuk/exportPDF/(:num)', 'SuratMasuk::surat_exportPDF/$1');
+$routes->post('suratMasuk/exportPDF', 'SuratMasuk::laporan_exportPDF');
+$routes->get('suratMasuk/pelaporan', 'SuratMasuk::pelaporan');
+$routes->post('suratMasuk/laporan', 'SuratMasuk::laporan');
+
 
 $routes->get('suratKeluar', 'SuratKeluar::index');
 $routes->get('suratKeluar/create', 'SuratKeluar::create');
-$routes->post('suratKeluar/bagian', 'SuratKeluar::bagian');
+$routes->post('suratKeluar/surat_keluar', 'SuratKeluar::surat_keluar');
+$routes->get('suratKeluar/show/(:num)', 'SuratKeluar::show/$1');
 $routes->get('suratKeluar/edit/(:num)', 'SuratKeluar::edit/$1');
-$routes->post('suratKeluar/update/(:num)', 'SuratKeluar::update/$1');
+$routes->post('suratKeluar/update', 'SuratKeluar::update');
 $routes->get('suratKeluar/delete/(:num)', 'SuratKeluar::delete/$1');
+$routes->get('suratKeluar/pelaporan', 'SuratKeluar::pelaporan');
+$routes->post('suratKeluar/laporan', 'SuratKeluar::laporan');
+$routes->post('suratKeluar/exportPDF', 'SuratKeluar::laporan_exportPDF');
 
 
 

@@ -53,6 +53,14 @@ class User extends Migration
 				'constraint'        => "'Super_Admin','Admin','User'",
 				'default'           => 'User'
 			],
+			'created_at'                 => [
+				'type'              => 'DATETIME',
+				'null'				=> TRUE
+			],
+			'updated_at'                 => [
+				'type'              => 'ENUM',
+				'null'				=> TRUE
+			],
 		]);
 		$this->forge->addKey('id_user', TRUE);
 		$this->forge->createTable('user');

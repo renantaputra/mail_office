@@ -24,17 +24,14 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            List User
-                            <a href="<?php echo base_url('/user/create/'); ?>" class="btn btn-primary float-right">Tambah</a>
+                            <a href="<?php echo base_url('user/create'); ?>" class="btn btn-primary float-right">Tambah</a>
                         </div>
                         <div class="card-body">
-
-                            <?php
-                            if (!empty(session()->getFlashdata('success'))) { ?>
+                            <?php if (session()->getFlashdata('success')) : ?>
                                 <div class="alert alert-success">
                                     <?php echo session()->getFlashdata('success'); ?>
                                 </div>
-                            <?php } ?>
+                            <?php endif; ?>
 
                             <?php if (!empty(session()->getFlashdata('info'))) { ?>
                                 <div class="alert alert-info">
@@ -52,7 +49,7 @@
                                 <table class="table table-bordered table-hovered">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>No</th>
                                             <th>Username</th>
                                             <th>Nama Lengkap</th>
                                             <th>Email</th>
@@ -65,9 +62,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $i = 1 + (5 * ($currentPage - 1)); ?>
                                         <?php foreach ($user as $row) { ?>
                                             <tr>
-                                                <td><?php echo $row['id_user']; ?></td>
+                                                <td><?php echo $i++; ?></td>
                                                 <td><?php echo $row['username']; ?></td>
                                                 <td><?php echo $row['nama_lengkap']; ?></td>
                                                 <td><?php echo $row['email']; ?></td>
@@ -77,14 +75,15 @@
                                                 <td><?php echo $row['status']; ?></td>
                                                 <td><?php echo $row['level']; ?></td>
                                                 <td>
-                                                    <div class="btn-group">
-                                                        <a href="<?php echo base_url('User/edit/' . $row['id_user']); ?>" class="btn btn-sm btn-success">
+                                                    <a href="/user/detail/<?php echo $row['id_user']; ?>" class="btn btn-success">Detail</a>
+                                                    <!-- <div class="btn-group">
+                                                        <a href="<?php echo base_url('user/edit/' . $row['id_user']); ?>" class="btn btn-sm btn-success">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
-                                                        <a href="<?php echo base_url('User/delete/' . $row['id_user']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
+                                                        <a href="<?php echo base_url('user/delete/' . $row['id_user']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
                                                             <i class="fa fa-trash-alt"></i>
                                                         </a>
-                                                    </div>
+                                                    </div> -->
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -93,7 +92,7 @@
                             </div>
                             <div class="row mt-3 float-right">
                                 <div class="col-md-12">
-                                    <?php echo $pager->links('user', 'bootstrap_pagination') ?>
+                                    <?= $pager->links('user', 'bootstrap_pagination'); ?>
                                 </div>
                             </div>
                         </div>

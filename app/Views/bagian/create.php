@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="<?php echo base_url('Bagian/bagian'); ?>" method="post">
+                    <form action="<?php echo base_url('bagian/bagian'); ?>" method="post">
                         <div class="card">
                             <div class="card-body">
                                 <?php
